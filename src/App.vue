@@ -3,16 +3,17 @@
     <auth-form  @auth='authUser'/>
   </my-auth>
   
-  <div class="page">
+  <div class="bg-gray-200">  //
     <div class="menu"> 
+    <div class="menu">       
       <div>Добро пожаловать, {{ this.$store.getters.getMainUserFio }} | {{ this.$store.getters.getMainUserRole }}</div>  
       
       <nav>
-        <router-link to="/">Home</router-link> |
+        <router-link to="/">Главная</router-link> |
         <router-link to="/coins">Монеты</router-link> |
-        <router-link to="/usertable">UserTable</router-link> |
-        <router-link to="/useraccount">UserAccount</router-link> |
-        <router-link to="/usercoins">UserCoins</router-link>
+        <router-link to="/usertable">Пользователи</router-link> |
+        <router-link to="/useraccount">Кошелек</router-link> |
+        <router-link to="/usercoins">Мои монеты</router-link>
       </nav>
     </div>
     <router-view v-if="autorization"/>
@@ -77,7 +78,7 @@ export default {
 </script>
 
 
-
+<!--
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -119,3 +120,4 @@ d_nav a.router-link-exact-active {
   display: flex;
 }
 </style>
+-->

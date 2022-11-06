@@ -3,21 +3,51 @@
     <auth-form  @auth='authUser'/>
   </my-auth>
   
-  <div class="bg-gray-200">  //
-    <div class="menu"> 
-    <div class="menu">       
-      <div>Добро пожаловать, {{ this.$store.getters.getMainUserFio }} | {{ this.$store.getters.getMainUserRole }}</div>  
-      
-      <nav>
-        <router-link to="/">Главная</router-link> |
-        <router-link to="/coins">Монеты</router-link> |
-        <router-link to="/usertable">Пользователи</router-link> |
-        <router-link to="/useraccount">Кошелек</router-link> |
-        <router-link to="/usercoins">Мои монеты</router-link>
+  <div class="flex flex-row bg-amber-100">  
+    <div class="bg-amber-400 w-1/5 h-screen "> 
+    
+      <div class="bg-gray-500 text-white">
+        <div v-if="autorization">
+          Добро пожаловать, <br> {{ this.$store.getters.getMainUserFio }}  
+        </div>
+        <div v-else>
+          Авторизуйтесь перед началом работы
+        </div>
+      </div>  
+      <nav class="grid grid-cols-1 gap-4 justify-items-center">
+        <router-link class=""
+          :class="{'bg-amber-500':  this.$route.name === 'home'}" 
+          to="/"
+        >Главная
+        </router-link>
+        <router-link class=""
+          :class="{'bg-amber-500':  this.$route.name === 'coins'}" 
+          to="/coins"
+        >Монеты
+        </router-link>
+        <router-link class=""
+          :class="{'bg-amber-500':  this.$route.name === 'usertable'}" 
+          to="/usertable"
+        >Пользователи
+        </router-link>
+        <router-link class=""
+          :class="{'bg-amber-500':  this.$route.name === 'useraccounts'}" 
+          to="/useraccount"
+        >Кошелек
+        </router-link>
+        <router-link class=""
+          :class="{'bg-amber-500':  this.$route.name === 'usercoins'}" 
+          to="/usercoins"
+        >Мои монеты
+        </router-link>
       </nav>
     </div>
-    <router-view v-if="autorization"/>
-    <div v-else>Неизвестный пользователь</div>
+    
+    <div class="w-4/5 h-screen">
+        <router-view v-if="autorization"/>
+        <div v-else>Неизвестный пользователь</div>
+    </div>
+    
   </div>
   
 </template>
@@ -45,7 +75,7 @@ export default {
   methods: {
         authUser(authInfo) {
           for (let i = 0; i < Object.keys(this.users).length; i++) {
-            //console.log(this.users[i].logname);
+            console.log(this.users[i].logname);
             if (authInfo.password === this.users[i].password) {
               this.mainUser.role = this.users[i].role
               this.mainUser.logname = this.users[i].logname
@@ -59,6 +89,8 @@ export default {
         }
   },
   created() {
+    console.log(this.$route);
+    
     this.$store.dispatch('getUsers');
     this.$store.dispatch('getCoins');
     this.$store.dispatch('getTrades');

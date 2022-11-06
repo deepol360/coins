@@ -1,18 +1,19 @@
 <template>
-    <div class="userinfo">
-      <div class="userflex" >
-        <div class="flexitem"><strong>currency:</strong> {{ useraccount.currency }}</div>
-        <div class="flexitem"><strong>amount:</strong> {{ +useraccount.amount }}</div>
-        <my-input
+
+      <div class="flex flex-row" >
+        <div class="flex-initial w-64"><strong>currency:</strong> {{ useraccount.currency }}</div>
+        <div class=""><strong>amount:</strong> {{ +useraccount.amount }}</div>
+        <my-input class=""
             v-model="refillAmount"
             type="number"
             placeholder="Сумма пополнения"
         />
       </div>
-      <div>
+      
+
         <my-button @click="refillAccount">Пополнить счет пользователя</my-button>
-    </div>
-    </div>
+
+
 </template>
 
 <script>

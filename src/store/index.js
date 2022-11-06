@@ -75,7 +75,11 @@ export default createStore({
     },
     getMainUserFio: state => {
       return state.mainUser.fio
+    },
+    getUserAccountId: state => logname => {
+      return state.useraccounts.find(useraccount => useraccount.logname === logname)
     }
+
 
 
 

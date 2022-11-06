@@ -1,12 +1,8 @@
 <template>
-    <div>
-        <div class="cointable">
-            <h1>Монеты</h1>
-        </div>
-
-        <div class="app__btns" v-if="this.$store.getters.getMainUserRole === 'admin'">
-            <my-button  @click="showDialog">Создать монету/Обновить стоимость</my-button>
-            <my-select 
+    <div class="flex flex-col">
+        <div class="flex flex-row" v-if="this.$store.getters.getMainUserRole === 'admin'">
+            <my-button class="m-2 border-2 border-black-500 rounded-lg " @click="showDialog">Создать монету/Обновить стоимость</my-button>
+            <my-select class="m-2"
                 v-model="selectedSearch"
                 v-bind:options="searchOptions"        
             />

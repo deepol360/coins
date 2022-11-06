@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <div class="usertable">
+  <div v-if="this.$store.getters.getMainUserRole === 'admin'">
+    <div class="flex justify-center">
         <h1>Пользователи</h1>
-        <div> {{ $store.getters.getMainUserLogname }}</div> 
     </div>
 
-    <div class="app__btns">
-      <my-button @click="showDialog">Создать пользователя</my-button>
-
-      <my-select 
-        v-model="selectedSearch"
-        v-bind:options="searchOptions"        
-      />
+    <div>
+      <div> <strong>Показать: </strong>
+        <my-select 
+          v-model="selectedSearch"
+          v-bind:options="searchOptions"        
+        />
+      </div>
     </div>
     
     <my-dialog v-model:show="dialogVisible">
@@ -19,7 +18,7 @@
     </my-dialog>
 
     <div v-if="this.users.length > 0">      
-        <h3>Список пользователей</h3>
+        <h3 class="flex justify-center">Список пользователей</h3>
         <transition-group name="user-list">
             <user-info 
             v-for="user in searchedUsers"
@@ -30,6 +29,13 @@
         </transition-group>
     </div>
     <h3 v-else>Список пользователей пуст</h3>
+
+    <div>
+      <my-button @click="showDialog">Создать пользователя</my-button>
+    </div>
+  </div>
+  <div class="flex justify-center" v-else>
+    Список пользователей недоступен
   </div>  
 
 
@@ -55,7 +61,18 @@ export default {
               {value: 'all', name: 'Все пользователи'},
               {value: 'admin', name: 'Администратор'},
               {value: 'user', name: 'Пользователь'}
-            ]
+            ],
+            addUserAccount: {
+              logname: '',
+              currency: 'USD',
+              amount: 0
+            },
+            remUserAccount: {
+              id: '',
+              logname: '',
+              currency: '',
+              amount: 0
+            }
         }
     },
     methods: {
@@ -67,14 +84,14 @@ export default {
         },
       
         async createUser(user) {
+            console.log(user.logname);
+            this.addUserAccount.logname = user.logname
             this.$store.dispatch('saveUser', user)
             this.$store.dispatch('getUsers')
-            this.users = this.$store.state.users    
+            this.users = this.$store.state.users
+            this.$store.dispatch('saveUserAccount', this.addUserAccount)
+            this.addUserAccount
         },
-        async createUserAccount(useraccount) {
-            this.$store.dispatch('saveUserAccount', useraccount)
-        },
-
         async removeUser(user) {
             this.$store.dispatch('deleteUser', user)
             this.$store.dispatch('getUsers')

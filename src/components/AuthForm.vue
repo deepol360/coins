@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent>
-      <h4>Авторизация</h4>
+      <h4 class="flex justify-center">Авторизация</h4>
       <my-input
         v-model="authInfo.logname"
         type="text"

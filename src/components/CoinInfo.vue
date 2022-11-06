@@ -1,19 +1,33 @@
 <template>
-    <div class="coininfo">
+    <div class="flex flex-row">
       <div         
-        class="coin"
+        class="flex flex-row bg-yellow-200 p-2 m-2"
         :class="{
-          'status-coin':  coin.status === 'available'
+          'flex flex-row bg-green-100 p-2 m-2 ':  coin.status === 'available'
         }"
       >
-        <div><strong>ID:</strong> {{ coin.id }}</div>
-        <div><strong>status:</strong> {{ coin.status }}</div>
-        <div><strong>cost:</strong> {{ coin.cost }}</div>
-        <div><strong>createdate:</strong> {{ coin.createdate }}</div>
+        <div class="m-2 border-3 border-green-600">
+          <img class="object contain h-6 w-6" src="../assets/coin.png" alt="coin">
+        </div>
+        <div class="m-2" v-if="this.$store.getters.getMainUserRole === 'admin'">
+          <strong>ID:</strong> {{ coin.id }}
+        </div>
+        <div class="m-2"><strong>status:</strong> {{ coin.status }}</div>
+        <div class="m-2"><strong>cost:</strong> {{ coin.cost }}</div>
+        <div class="m-2" v-if="this.$store.getters.getMainUserRole === 'admin'">
+          <strong>createdate:</strong> {{ coin.createdate }}
+        </div>
       </div>
-      <div>
-        <my-button v-if="this.$store.getters.getMainUserRole === 'admin'" @click="$emit('remove', coin)">Удалить монету</my-button>
-        <my-button v-if="this.$store.getters.getMainUserRole === 'user'" @click="$emit('purchase', coin)">Купить монету</my-button>
+      <div class="p-2 m-2">
+        <my-button 
+          v-if="this.$store.getters.getMainUserRole === 'admin'" @click="$emit('remove', coin)"
+          >Удалить монету
+        </my-button>
+        <my-button 
+          class="bg-gold-500 rounded-lg"
+          v-if="this.$store.getters.getMainUserRole === 'user'" @click="$emit('purchase', coin)"
+          >Купить монету
+        </my-button>
       </div>
     </div>
 </template>

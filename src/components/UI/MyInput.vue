@@ -1,5 +1,8 @@
 <template>
-    <input v-bind:value="modelValue" @input="updateInput" class="input" type="text">
+    <input 
+        class="border-2 border-amber-900 rounded p-2 my-0.5 w-full"
+        v-bind:value="modelValue" @input="updateInput" type="text"
+    >
 </template>
 
 <script>
@@ -16,11 +19,7 @@ export default {
 }
 </script>
 
+
 <style scoped>
-.input {
-  width: 90%;
-  border: 3px solid yellowgreen;
-  padding: 10px;
-  margin: 5px;
- }
+
 </style>

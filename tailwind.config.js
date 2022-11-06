@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}","./public/**/*.{html,js}"],
+  content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    fontFamily: {
-      "sans": ["arial", "sans-serif"]
-    },
     extend: {},
   },
   plugins: [],

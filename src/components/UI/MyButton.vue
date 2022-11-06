@@ -1,6 +1,8 @@
 <template>
-    <button class="btn">
-        <slot></slot>
+    <button class="bg-amber-300 border-2 border-amber-900 rounded p-2 my-0.5 w-full">
+        <slot>
+
+        </slot>
     </button>
 </template>
 
@@ -10,12 +12,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.btn_del{
-  padding: 10px 15px;
-  background: blue;
-  color: aliceblue;
-  border: 2px solid salmon;
-}
-</style>

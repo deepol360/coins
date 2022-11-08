@@ -50,7 +50,14 @@ export default createStore({
     },
     currentusercoin: {
       type: Object
-    }
+    },
+    menuItems: [
+      {id: 1, role: 'all', item: 'Главная', name: 'home'},
+      {id: 2, role: 'all', item: 'Монеты', name: 'coins'},
+      {id: 3, role: 'admin', item: 'Пользователи', name: 'usertable'},
+      {id: 4, role: 'user', item: 'Кошелек', name: 'useraccount'},
+      {id: 5, role: 'user', item: 'Мои монеты', name: 'usercoins'}
+    ]
 
 
   },
@@ -78,6 +85,9 @@ export default createStore({
     },
     getUserAccountId: state => logname => {
       return state.useraccounts.find(useraccount => useraccount.logname === logname)
+    },
+    getMenuItemsByRole: state => role => {
+      return state.menuItems.filter(menuItem => menuItem.role === role || menuItem.role === 'all')
     }
 
 
@@ -222,14 +232,15 @@ export default createStore({
 
     },
     //переоцениваем монеты
-    async revaluateCoin(coin) {
+    async revaluateCoin(context,coin) {
       //от полученной на вход монеты берем только стоимость и обновляем стоимость всех монет
       //проданные монеты находятся в usercoins, там же их цена покупки. Она не изменится
-      for (let i = 0; i < Object.keys(context.state.coins).length; i++) {
-        if (context.state.coins[i].status === 'available') {
-          context.state.coins[i].cost = coin.cost
-          await idb.saveCoin(JSON.parse(JSON.stringify(context.state.coins[i])))
-        } 
+      console.log('count coins ', Object.keys(context.state.coins).length);
+      for (let i = 0; i <= Object.keys(context.state.coins).length; i++) {
+        console.log(i,  context.state.coins[i]);
+        context.state.coins[i].cost = coin.cost;
+        await idb.saveCoin(JSON.parse(JSON.stringify(context.state.coins[i])))
+         
       }
     }
 

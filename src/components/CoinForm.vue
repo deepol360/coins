@@ -9,6 +9,7 @@
 
       <my-button @click="createCoin">Создать</my-button>
       <my-button @click="revaluateCoin">Обновить стоимость</my-button>
+      <my-button @click="abortCoin">Отмена</my-button>
     </form>
   </template>
   
@@ -38,6 +39,14 @@
             this.coin.status = ''
             this.coin.createdate = Date.now()
             this.$emit('revaluate', this.coin)
+            this.coin = {
+                status: '',
+                cost:  0,
+                createdate: '',
+            }
+          },
+          abortCoin() {
+            this.$emit('abortall', this.coin)
             this.coin = {
                 status: '',
                 cost:  0,

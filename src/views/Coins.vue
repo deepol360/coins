@@ -12,6 +12,8 @@
             <coin-form  
                 @create='createCoin'
                 @revaluate='revaluateCoins'
+                @abortall='abortCoin'
+
             />
         </my-dialog>
  
@@ -68,17 +70,24 @@ export default {
         async createCoin(coin) {
             this.$store.dispatch('saveCoin', coin);
             this.getCoins();
+            this.dialogVisible = false;
         },
         async removeCoin(coin) {
             this.$store.dispatch('deleteCoin', coin);
             this.getCoins();
         },
         showDialog() {
-        this.dialogVisible = true;
+          this.dialogVisible = true;
+        },
+        abortCoin() {
+          this.dialogVisible = false;
         },
         async revaluateCoins(coin) {
+            console.log(coin);
+            alert(stop)
             this.$store.dispatch('revaluateCoin', coin);
             this.getCoins();
+            this.dialogVisible = false;
         },
         async purchaseCoin(coin) {
             this.$store.dispatch('purchaseCoin', coin);

@@ -14,32 +14,17 @@
           Авторизуйтесь перед началом работы
         </div>
       </div>  
-      <nav class="grid grid-cols-1 gap-4 justify-items-center">
-        <router-link class=""
-          :class="{'bg-amber-500':  this.$route.name === 'home'}" 
-          to="/"
-        >Главная
-        </router-link>
-        <router-link class=""
-          :class="{'bg-amber-500':  this.$route.name === 'coins'}" 
-          to="/coins"
-        >Монеты
-        </router-link>
-        <router-link class=""
-          :class="{'bg-amber-500':  this.$route.name === 'usertable'}" 
-          to="/usertable"
-        >Пользователи
-        </router-link>
-        <router-link class=""
-          :class="{'bg-amber-500':  this.$route.name === 'useraccounts'}" 
-          to="/useraccount"
-        >Кошелек
-        </router-link>
-        <router-link class=""
-          :class="{'bg-amber-500':  this.$route.name === 'usercoins'}" 
-          to="/usercoins"
-        >Мои монеты
-        </router-link>
+      <nav class="grid gap-4 justify-items-center">
+        <div 
+          v-for="menuItem in this.$store.getters.getMenuItemsByRole(this.$store.getters.getMainUserRole)" :key="menuItem"
+          class="" :class="{'bg-amber-500' :this.$route.name === menuItem.name}"
+        >
+          <router-link 
+          :to="`/${ menuItem.name }`"
+          > {{  menuItem.item  }}
+          </router-link>
+        </div>
+
       </nav>
     </div>
     
@@ -84,8 +69,14 @@ export default {
               this.autorization = true
             } 
           }
-          this.$store.state.mainUser = this.mainUser
-          this.$store.state.authorization = this.autorization
+          if (this.autorization) {
+            this.$store.state.mainUser = this.mainUser
+            this.$store.state.authorization = this.autorization
+          } else {
+            this.$store.state.mainUser = ''
+            this.$store.state.authorization = this.autorization
+            alert('Неверное имя пользователя/пароль!')
+          }
         }
   },
   created() {
